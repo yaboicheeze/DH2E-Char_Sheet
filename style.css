@@ -1,0 +1,195 @@
+.sheet-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px
+}
+
+.sheet-block table {
+    text-align: center;
+}
+
+.table-container{
+    display:flex;
+    margin-left: 1%;
+}
+
+.table-container-nomargin{
+    display:flex;
+}
+
+.skills-table-container{
+    display:flex;
+    margin-left: 1%;
+    margin-top: 20px;
+}
+
+.skill-table-align {
+    text-align: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    color: white;
+    background-color: #990000;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin-left: 20px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+nav button {
+    margin-left: 40px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+table {
+    margin-right: 20px;
+}
+
+input {
+    width: 80px;
+}
+
+body {
+    background-color: #e6b8af;
+    font-family: 'Oswald', sans-serif;
+}
+
+h2 {
+    background-color: #990000;
+    color: white;
+}
+
+.char-info-block {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+    background-color: #990000;
+    color: white;
+    margin-left: 20px;
+}
+
+.mental-trait-block {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    background-color: #990000;
+    color: white;
+    margin-left: 20px;
+}
+
+.char-info-block textarea {
+    resize: both;
+    max-width: 750px;
+    width: 750px;
+    height: 20px;
+    background-color: #fff2cc;
+}
+
+/* Inventory styling */
+.inventory-table-style {
+    color: white;
+    background-color: #990000;
+}
+
+.inventory-table-style textarea {
+    height: 20px;
+    width: 250px;
+}
+
+.inventory-table-style td:nth-child(2) textarea{
+    resize: both;
+    max-width: 500px;
+    max-height: 200px;
+}
+
+/* Psyker styling */
+.psyker-table-style {
+    color: white;
+    background-color: #990000;
+}
+
+.psyker-table-style textarea {
+    height: 20px;
+    width: 300px;
+}
+
+.psyker-table-style td:nth-child(2) textarea{
+    resize: both;
+    max-width: 500px;
+    max-height: 200px;
+}
+
+/* Weapon table styling */
+.weapon-table-style {
+    color: white;
+    background-color: #990000;
+}
+
+.weapon-table-style textarea {
+    resize: both;
+    height: 20px;
+    width: 70px;
+}
+
+/*styling for tables*/
+.table-colors{
+    background-color: #990000;
+    color: white;
+    width: 100%;
+    border: solid;
+    border-color: black;
+}
+
+/*Alternating text box colors*/
+tr:nth-child(odd) input[type="number"] {
+    background-color: #fff2cc;
+}
+tr:nth-child(even) input[type="number"] {
+    background-color: #f9cb9c;
+}
+
+/*Alternating dropdown selection box colors*/
+tr:nth-child(odd) select {
+    background-color: #fff2cc;
+}
+tr:nth-child(even) select {
+    background-color: #f9cb9c;
+}
+
+/*Alternating checkbox background colors*/
+table td.checkbox-cell {
+    background-color: #fff2cc;
+}
+table tr:nth-child(odd) td.checkbox-cell {
+    background-color: #f9cb9c;
+}
+
+/*Changin link colors*/
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: rgb(255, 248, 59);
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: rgb(255, 132, 132);
+    background-color: transparent;
+    text-decoration: underline;
+}
+

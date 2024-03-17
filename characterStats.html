@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap">
+<script src="calculations.js"></script>
+<link href="style.css" rel="stylesheet">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DH2E Character Sheet</title>
+</head>
+
+<body>
+    <header>
+        <h1>Dark Heresey 2E Character Sheet</h1>
+        <nav>
+            <button onclick="saveCharacter()">Save Character</button>
+            <button onclick="loadCharacter()">Load Character</button>
+            <a href="https://apps.ajott.io/quickref/index.html" target="_blank">DH 2e Quick Reference</a>
+            <a href="https://apps.ajott.io/dh2chargen/" target="_blank">Character Creator</a>
+        </nav>
+    </header>
+    <div class="sheet-block">
+        <div> <!--Main Stats-->
+            <div class="table-container">
+                <div class="table-colors"> <!--Ability Scores-->
+                    <table>
+                        <tr>
+                            <h2 rowspan="3">Abilities
+                            </h2>
+                        </tr>
+                        <tr>
+                            <th>Ability</th>
+                            <th>Score</th>
+                            <th>Mod</th>
+                        </tr>
+                        <tr>
+                            <td>Weapon Skill</td>
+                            <td><input type="number" value="10" id="wsScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value="0" id="wsMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Balistic Skill</td>
+                            <td><input type="number" value="10" id="bsScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value="0" id="bsMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Strength</td>
+                            <td><input type="number" value="10" id="strScore" onchange="updateModACcarryWeight()"></td>
+                            <td><input type="number" value="0" id="strMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Toughness</td>
+                            <td><input type="number" value="10" id="tScore" onchange="updateModACcarryWeight()"></td>
+                            <td><input type="number" value="0" id="tMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Agility</td>
+                            <td><input type="number" value="10" id="agScore" onchange="updateModAndMovement()"></td>
+                            <td><input type="number" value="0" id="agMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Intelligence</td>
+                            <td><input type="number" value="10" id="intScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value="0" id="intMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Perception</td>
+                            <td><input type="number" value="10" id="perScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value="0" id="perMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Willpower</td>
+                            <td><input type="number" value="10" id="wpScore" onchange="updateModAndFatigue()"></td>
+                            <td><input type="number" value="0" id="wpMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Fellowship</td>
+                            <td><input type="number" value="10" id="felScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value="0" id="felMod"></td>
+                        </tr>
+                        <tr>
+                            <td>Influence</td>
+                            <td><input type="number" value="10" id="iflScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value="0" id="iflMod"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-colors"> <!--Armor-->
+                    <table>
+                        <tr>
+                            <h2 rowspan="3">Armor</h2>
+                        </tr>
+                        <tr>
+                            <th>Location</th>
+                            <th>AV</th>
+                            <th>Total AV</th>
+                        </tr>
+                        <tr>
+                            <td>Head</td>
+                            <td><input type="number" id="headAV" value="0" onchange="setArmorValues()"></td>
+                            <td><input type="number" id="totHeadAV" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Body</td>
+                            <td><input type="number" id="bodyAV" value="0" onchange="setArmorValues()"></td>
+                            <td><input type="number" id="totBodAV" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Left Arm</td>
+                            <td><input type="number" id="laAV" value="0" onchange="setArmorValues()"></td>
+                            <td><input type="number" id="totLAAV" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Right Arm</td>
+                            <td><input type="number" id="raAV" value="0" onchange="setArmorValues()"></td>
+                            <td><input type="number" id="totRAAV" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Left Leg</td>
+                            <td><input type="number" id="llAV" value="0" onchange="setArmorValues()"></td>
+                            <td><input type="number" id="totLLAV" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Right Leg</td>
+                            <td><input type="number" id="rlAV" value="0" onchange="setArmorValues()"></td>
+                            <td><input type="number" id="totRLAV" value="0"></td>
+                        </tr>
+                    </table>
+                    <div class="table-colors"> <!-- Movement -->
+                    <table>
+                        <h2>Movement</h2>
+                        <tr>
+                            <th>Half</th>
+                            <td><input type="number" value="0" id="halfSpeed"></td>
+                        </tr>
+                        <tr>
+                            <th>Full</th>
+                            <td><input type="number" value="0" id="fullSpeed"></td>
+                        </tr>
+                        <tr>
+                            <th>Charge</th>
+                            <td><input type="number" value="0" id="chargeSpeed"></td>
+                        </tr>
+                        <tr>
+                            <th>Run</th>
+                            <td><input type="number" value="0" id="runSpeed"></td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+            </div>
+            <div class="skills-table-container"> <!--Skills-->
+                <div class="table-colors">
+                    <h2>Skills</h2>
+                    <table>
+                        <tr>
+                            <th>Skill</th>
+                            <th class="skill-table-align">Known</th>
+                            <th class="skill-table-align">+10</th>
+                            <th class="skill-table-align">+20</th>
+                            <th class="skill-table-align">+30</th>
+                        </tr>
+                        <tr>
+                            <td>Acrobatics (Ag)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1acro"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2acro"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3acro"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4acro"></td>
+                        </tr>
+                        <tr>
+                            <td>Athletics (S)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1athl"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2athl"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3athl"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4athl"></td>
+                        </tr>
+                        <tr>
+                            <td>Awareness (Per)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1awa"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2awa"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3awa"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4awa"></td>
+                        </tr>
+                        <tr>
+                            <td>Charm (Fel)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1charm"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2charm"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3charm"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4charm"></td>
+                        </tr>
+                        <tr>
+                            <td>Command (Fel)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1cmnd"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2cmnd"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3cmnd"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4cmnd"></td>
+                        </tr>
+                        <tr>
+                            <td>Commerce (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1cmrc"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2cmrc"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3cmrc"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4cmrc"></td>
+                        </tr>
+                        <tr>
+                            <td>Common Lore (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1cLor"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2cLor"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3cLor"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4cLor"></td>
+                        </tr>
+                        <tr>
+                            <td>Deceive (Fel)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1dec"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2dec"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3dec"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4dec"></td>
+                        </tr>
+                        <tr>
+                            <td>Dodge (Ag)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1dod"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2dod"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3dod"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4dod"></td>
+                        </tr>
+                        <tr>
+                            <td>Forbidden Lore (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1fLor"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2fLor"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3fLor"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4fLor"></td>
+                        </tr>
+                        <tr>
+                            <td>Inquiry (Fel)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1inqu"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2inqu"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3inqu"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4inqu"></td>
+                        </tr>
+                        <tr>
+                            <td>Interrogation (WP)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1intgt"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2intgt"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3intgt"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4intgt"></td>
+                        </tr>
+                        <tr>
+                            <td>Intimidate (S)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1intim"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2intim"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3intim"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4intim"></td>
+                        </tr>
+                        <tr>
+                            <td>Linguistics (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1ling"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2ling"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3ling"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4ling"></td>
+                        </tr>
+                        <tr>
+                            <td>Logic (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1log"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2log"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3log"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4log"></td>
+                        </tr>
+                        <tr>
+                            <td>Medicae (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1med"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2med"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3med"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4med"></td>
+                        </tr>
+                        <tr>
+                            <td>Navigate (Surface) (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1navSurf"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2navSurf"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3navSurf"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4navSurf"></td>
+                        </tr>
+                        <tr>
+                            <td>Navigate (Stellar) (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1navStel"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2navStel"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3navStel"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4navStel"></td>
+                        </tr>
+                        <tr>
+                            <td>Navigate (Warp) (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1navWar"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2navWar"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3navWar"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4navWar"></td>
+                        </tr>
+                        <tr>
+                            <td>Operate (Aeronautica) (Ag)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1opAero"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2opAero"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3opAero"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4opAero"></td>
+                        </tr>
+                        <tr>
+                            <td>Operate (Surface) (Ag)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1opSurf"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2opSurf"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3opSurf"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4opSurf"></td>
+                        </tr>
+                        <tr>
+                            <td>Operate (Voidship) (Ag)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1opVoid"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2opVoid"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3opVoid"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4opVoid"></td>
+                        </tr>
+                        <tr>
+                            <td>Parry (WS)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1parr"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2parr"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3parr"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4parr"></td>
+                        </tr>
+                        <tr>
+                            <td>Psyniscience (Per)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1psyn"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2psyn"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3psyn"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4psyn"></td>
+                        </tr>
+                        <tr>
+                            <td>Scholastic Lore (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1sLore"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2sLore"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3sLore"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4sLore"></td>
+                        </tr>
+                        <tr>
+                            <td>Scrutiny (Per)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1scrut"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2scrut"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3scrut"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4scrut"></td>
+                        </tr>
+                        <tr>
+                            <td>Security (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1secur"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2secur"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3secur"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4secur"></td>
+                        </tr>
+                        <tr>
+                            <td>Sleigth of Hand (Ag)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1soh"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2soh"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3soh"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4soh"></td>
+                        </tr>
+                        <tr>
+                            <td>Stealth (Ag)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1steal"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2steal"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3steal"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4steal"></td>
+                        </tr>
+                        <tr>
+                            <td>Survival (Per)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1surv"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2surv"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3surv"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4surv"></td>
+                        </tr>
+                        <tr>
+                            <td>Tech-Use (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1tech"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2tech"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3tech"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4tech"></td>
+                        </tr>
+                        <tr>
+                            <td>Trade (Int)</td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox1trade"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox2trade"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox3trade"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="checkbox4trade"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div> <!--Inventory and Other Stats-->
+            <div class="table-colors">
+                <table> <!--Damage Values-->
+                    <h2>Damage Values</h2>
+                    <tr>
+                        <th>Crtical Health</th>
+                        <th>Wounds</th>
+                        <th>Insanity</th>
+                        <th>Corruption</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="chatCritHP" value="10/10"></td>
+                        <td><input type="text" id="charWounds" value="10/10"></td>
+                        <td><input type="number" id="chatInsanity" value="0"></td>
+                        <td><input type="number" id="charCorruption" value="0"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table-container-nomargin"> <!--Trackers-->
+                <div class="table-colors"> <!--Experience Points-->
+                    <table>
+                        <h2>EXP</h2>
+                        <tr>
+                            <td>XP To Spend</td>
+                            <td><input type="number" id="xpToSpend" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Total SP Spent</td>
+                            <td><input type="number" id="totalXPSpent" value="0"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-colors"> <!--Fate Points-->
+                    <table>
+                        <h2>Fate Points</h2>
+                        <tr>
+                            <td>Threshold</td>
+                            <td><input type="number" id="fateThresh" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Current</td>
+                            <td><input type="number" id="currFate" value="0"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="table-colors"> <!--Fatigue-->
+                    <table>
+                        <h2>Fatigue</h2>
+                        <tr>
+                            <td>Threshold</td>
+                            <td><input type="number" id="fatigueThresh" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Current</td>
+                            <td><input type="number" id="currFatigue" value="0"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="table-colors"> <!-- Psyker Stuff -->
+                <table id="psyTable" class="psyker-table-style">
+                    <tr>
+                        <td><h2>Psyker Powers</h2></td>
+                        <td><button onclick="addPsykerSlot()">Add Power</button>
+                        <button onclick="removePsykerSlot()">Remove Power</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table id="nestedPsyTable">
+                                <tr>
+                                    <th>Psy Rating</th>
+                                    <td><input type="number" id="psyRating" value="0"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><textarea type="number" id="1PsyPower"></textarea></td>
+                        <td><textarea type="number" id="1PsyDesc"></textarea></td>
+                    </tr> 
+                </table>
+            </div>
+            <div class="table-colors"> <!--Inventory-->
+                <table id="inventoryTable" class="inventory-table-style"> <!--Gear-->
+                    <tr>
+                        <td><h2>Inventory</h2></td>
+                        <td colspan="2">
+                            <button onclick="addInventorySlot()">Add Slot</button>
+                            <button onclick="removeInventorySlot()">Remove Slot</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" rowspan="2">
+                            <table id="nestedCarryWeightTable">
+                                <tr>
+                                    <th>Total CWt</th>
+                                    <th>Lift (kg)</th>
+                                    <th>push (kg)</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="number" id="totalWeight" value="0.9"></td>
+                                    <td><input type="number" id="liftWeight" value="1.8"></td>
+                                    <td><input type="number" id="pushWeight" value="3.6"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <th colspan="2">Current Carry Weight (kg)</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="number" id="curWeight" value="0"></td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th colspan="2">Description</th>
+                        <th>Weight (kg)</th>
+                    </tr>
+                    <tr>
+                        <td><textarea type="number" id="1Inv"></textarea></td>
+                        <td colspan="2"><textarea type="number" id="1Desc"></textarea></td>
+                        <td><input type="number" id="1Weigh" value="0" onchange="currentCarryWeight()"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table-colors"> <!--Weapons-->
+                <table id="weaponTable" class="weapon-table-style"> <!--Gear-->
+                    <tr>
+                        <td colspan="3"><h2>Weapons</h2></td>
+                        <td colspan="9">
+                            <button onclick="addWeaponSlot()">Add Slot</button>
+                            <button onclick="removeWeaponSlot()">Remove Slot</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Family</th>
+                        <th>Class</th>
+                        <th>Range</th>
+                        <th>RoF</th>
+                        <th>Dmg</th>
+                        <th>Pen</th>
+                        <th>Clip</th>
+                        <th>Reload</th>
+                        <th>Weight (kg)</th>
+                        <th>Avl</th>
+                        <th>Special</th>
+                    </tr>
+                    <tr>
+                        <td><textarea type="text" id="1WeapName"></textarea></td>
+                        <td><textarea type="text" id="1WeapFamily"></textarea></td>
+                        <td><textarea type="text" id="1WeapClass"></textarea></td>
+                        <td><textarea type="text" id="1WeapRange"></textarea></td>
+                        <td><textarea type="text" id="1WeapRoF"></textarea></td>
+                        <td><textarea type="text" id="1WeapDmg"></textarea></td>
+                        <td><textarea type="text" id="1WeapPen"></textarea></td>
+                        <td><textarea type="text" id="1WeapClip"></textarea></td>
+                        <td><textarea type="text" id="1WeapReload"></textarea></td>
+                        <td><input type="number" id="1WeapWeigh" value="0" onchange="currentCarryWeight()"></td>
+                        <td><textarea type="text" id="1WeapAvl"></textarea></td>
+                        <td><textarea type="text" id="1WeapSpecial"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="mental-trait-block"> <!-- Mental, Traits, Char Info -->
+            <div> <!--Talent, Traits, Bonuses-->
+                <div class="table-colors">
+                    <h2>Talents, Traits, Bonuses</h2>
+                    <div class="char-info-block">
+                        <h5>Talents</h5>
+                        <textarea id="charTalents"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Traits</h5>
+                        <textarea id="charTraits"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Bonuses</h5>
+                        <textarea id="charBonuses"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div> <!--Mental Disorders, Malignancies, Mutations-->
+                <div class="table-colors">
+                    <h2>Mental Disorders, Malignancies, Mutations</h2>
+                    <div class="char-info-block">
+                        <h5>Mental Disorders</h5>
+                        <textarea id="charDisorders"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Malignancies</h5>
+                        <textarea id="charMalignancies"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Mutations</h5>
+                        <textarea id="charMutations"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div> <!--Character Information-->
+                <div class="table-colors">
+                    <h2>Character Information</h2>
+                    <div class="char-info-block">
+                        <h5>Character Name:</h5>
+                        <textarea id="charName"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Home World</h5>
+                        <textarea id="charHomeWorld"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Background:</h5>
+                        <textarea id="charBKGD"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Role:</h5>
+                        <textarea id="charRole"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Elite Advances:</h5>
+                        <textarea id="eliteAdv"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Diviniation:</h5>
+                        <textarea id="charDivination"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Gender:</h5>
+                        <textarea id="charGender"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Age:</h5>
+                        <textarea id="charAge"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Build:</h5>
+                        <textarea id="charBuild"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Complexion:</h5>
+                        <textarea id="charComplexion"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Hair:</h5>
+                        <textarea id="charHair"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Quirks:</h5>
+                        <textarea id="charQuirks"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Superstitions:</h5>
+                        <textarea id="charsuperstitions"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Mementos:</h5>
+                        <textarea id="charMementos"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Allies:</h5>
+                        <textarea id="charAllies"></textarea>
+                    </div>
+                    <div class="char-info-block">
+                        <h5>Enemies:</h5>
+                        <textarea id="charEnemies"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
