@@ -8,17 +8,17 @@
     text-align: center;
 }
 
-.table-container{
-    display:flex;
+.table-container {
+    display: flex;
     margin-left: 1%;
 }
 
-.table-container-nomargin{
-    display:flex;
+.table-container-nomargin {
+    display: flex;
 }
 
-.skills-table-container{
-    display:flex;
+.skills-table-container {
+    display: flex;
     margin-left: 1%;
     margin-top: 20px;
 }
@@ -88,7 +88,7 @@ h2 {
     resize: both;
     max-width: 750px;
     width: 750px;
-    height: 20px;
+    height: 40px;
     background-color: #fff2cc;
 }
 
@@ -99,11 +99,11 @@ h2 {
 }
 
 .inventory-table-style textarea {
-    height: 20px;
-    width: 250px;
+    height: 30px;
+    width: 300px;
 }
 
-.inventory-table-style td:nth-child(2) textarea{
+.inventory-table-style td:nth-child(2) textarea {
     resize: both;
     max-width: 500px;
     max-height: 200px;
@@ -116,11 +116,11 @@ h2 {
 }
 
 .psyker-table-style textarea {
-    height: 20px;
+    height: 30px;
     width: 300px;
 }
 
-.psyker-table-style td:nth-child(2) textarea{
+.psyker-table-style td:nth-child(2) textarea {
     resize: both;
     max-width: 500px;
     max-height: 200px;
@@ -134,12 +134,12 @@ h2 {
 
 .weapon-table-style textarea {
     resize: both;
-    height: 20px;
-    width: 70px;
+    height: 30px;
+    width: 300px;
 }
 
 /*styling for tables*/
-.table-colors{
+.table-colors {
     background-color: #990000;
     color: white;
     width: 100%;
@@ -151,6 +151,7 @@ h2 {
 tr:nth-child(odd) input[type="number"] {
     background-color: #fff2cc;
 }
+
 tr:nth-child(even) input[type="number"] {
     background-color: #f9cb9c;
 }
@@ -159,6 +160,7 @@ tr:nth-child(even) input[type="number"] {
 tr:nth-child(odd) select {
     background-color: #fff2cc;
 }
+
 tr:nth-child(even) select {
     background-color: #f9cb9c;
 }
@@ -167,6 +169,7 @@ tr:nth-child(even) select {
 table td.checkbox-cell {
     background-color: #fff2cc;
 }
+
 table tr:nth-child(odd) td.checkbox-cell {
     background-color: #f9cb9c;
 }
@@ -177,19 +180,46 @@ a:link {
     background-color: transparent;
     text-decoration: none;
 }
+
 a:visited {
     color: rgb(255, 248, 59);
     background-color: transparent;
     text-decoration: none;
 }
+
 a:hover {
     color: red;
     background-color: transparent;
     text-decoration: underline;
 }
+
 a:active {
     color: rgb(255, 132, 132);
     background-color: transparent;
     text-decoration: underline;
 }
 
+
+/* Description Box Styling */
+.descBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #990000;
+    border: 1px solid black;
+    padding: 20px;
+    z-index: 999;
+}
+
+.descContent {
+    text-align: center;
+}
+
+.descContent textarea {
+    resize: both;
+    height: 500px;
+    width: 500px;
+    background-color:#fff2cc;
+}

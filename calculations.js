@@ -135,11 +135,25 @@ function updateModAndFatigue() { /* onchange for willpower section */
 }
 
 /* Inventory Slots */
+
+
 function addInventorySlot() {
     var table = document.getElementById("inventoryTable")
     var count = table.rows.length - 3;
-    table.innerHTML +=
-        '<td><textarea type="number" id="' + count + 'Inv"></textarea></td><td colspan="2"><textarea type="number" id="' + count + 'Desc"></textarea></td><td><input type="number" id="' + count + 'Weigh" value="0" onchange="currentCarryWeight()"></td>';
+
+    var newRow = table.insertRow(-1);
+    newRow.innerHTML = 
+        '<td><textarea type="number" id="' + count + 'Inv"></textarea></td>' +
+        '<td><button onclick="openDescBox(\'descInv' + count + '\')">Open Description</button></td>' +
+        '<div id="descInv' + count + '" class="descBox">' +
+        '<h1>Item ' + count + '</h1>' +
+        '<div class="descContent">' +
+        '<textarea id="' + count + 'InvDesc"></textarea>' +
+        '<button onclick="closeDescBox(\'descInv' + count + '\')">Close</button>' +
+        '</div>' +
+        '</div>' +
+        
+        '<td><input type="number" id="' + count +'Weigh" value="0" onchange="currentCarryWeight()"></td>';;
 }
 
 function removeInventorySlot() {
@@ -149,12 +163,25 @@ function removeInventorySlot() {
     }
 }
 
+
 /* Psyker Slots */
+
+
 function addPsykerSlot() {
     var table = document.getElementById("psyTable");
-    var count = table.rows.length - 2
-    table.innerHTML +=
-        '<td><textarea type="number" id="' + count + 'PsyPower"></textarea></td><td><textarea type="number" id="' + count + 'PsyDesc"></textarea></td>';
+    var count = table.rows.length - 2;
+
+    var newRow = table.insertRow(-1);
+    newRow.innerHTML = 
+        '<td><textarea type="number" id="' + count + 'PsyPower"></textarea></td>' +
+        '<td><button onclick="openDescBox(\'descPsyker' + count + '\')">Open Description</button></td>' +
+        '<div id="descPsyker' + count + '" class="descBox">' +
+        '<h1>Psyker Power' + count + '</h1>' +
+        '<div class="descContent">' +
+        '<textarea id="' + count + 'PsyDesc"></textarea>' +
+        '<button onclick="closeDescBox(\'descPsyker' + count + '\')">Close</button>' +
+        '</div>' +
+        '</div>';
 }
 
 function removePsykerSlot() {
@@ -164,30 +191,45 @@ function removePsykerSlot() {
     }
 }
 
+
+
 /* Weapon Slots */
+
+
 function addWeaponSlot() {
     var table = document.getElementById("weaponTable")
     var count = table.rows.length - 1;
-    table.innerHTML +=
-        '<td><textarea type="text" id="' + count + 'WeapName"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapFamily"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapClass"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapRange"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapRoF"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapDmg"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapPen"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapClip"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapReload"></textarea></td>' +
-        '<td><input type="number" id="' + count + 'WeapWeigh" value="0" onchange="currentCarryWeight()"></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapAvl"></textarea></td>' +
-        '<td><textarea type="text" id="' + count + 'WeapSpecial"></textarea></td>'
+    var newRow = table.insertRow(-1);
+    newRow.innerHTML = 
+        '<td><textarea type="number" id="' + count + 'Inv"></textarea></td>' +
 
-    console.log(count);
+        '<td><button onclick="openDescBox(\'descWeap1' + count + '\')">Open Description</button></td>' +
+        '<div id="descWeap1' + count + '" class="descBox">' +
+        '<h1>Weapon ' + count + '</h1>' +
+        '<div class="descContent">' +
+        '<textarea id="' + count + 'WeapDesc"></textarea>' +
+        '<button onclick="closeDescBox(\'descWeap1' + count + '\')">Close</button>' +
+        '</div>' +
+        '</div>' +
+
+        '<td><input type="number" id="' + count +'WeapWeigh" value="0" onchange="currentCarryWeight()"></td>';
 }
+
+
 
 function removeWeaponSlot() {
     var table = document.getElementById("weaponTable");
     if (table.rows.length > 2) {
         table.deleteRow(table.rows.length - 1);
     }
+}
+
+/* Open and Close Description Boxes */
+
+function openDescBox(descBoxID) {
+    document.getElementById(descBoxID).style.display = "block";
+}
+
+function closeDescBox(descBoxID) {
+    document.getElementById(descBoxID).style.display = "none";
 }

@@ -127,25 +127,25 @@
                         </tr>
                     </table>
                     <div class="table-colors"> <!-- Movement -->
-                    <table>
-                        <h2>Movement</h2>
-                        <tr>
-                            <th>Half</th>
-                            <td><input type="number" value="0" id="halfSpeed"></td>
-                        </tr>
-                        <tr>
-                            <th>Full</th>
-                            <td><input type="number" value="0" id="fullSpeed"></td>
-                        </tr>
-                        <tr>
-                            <th>Charge</th>
-                            <td><input type="number" value="0" id="chargeSpeed"></td>
-                        </tr>
-                        <tr>
-                            <th>Run</th>
-                            <td><input type="number" value="0" id="runSpeed"></td>
-                        </tr>
-                    </table>
+                        <table>
+                            <h2>Movement</h2>
+                            <tr>
+                                <th>Half</th>
+                                <td><input type="number" value="0" id="halfSpeed"></td>
+                            </tr>
+                            <tr>
+                                <th>Full</th>
+                                <td><input type="number" value="0" id="fullSpeed"></td>
+                            </tr>
+                            <tr>
+                                <th>Charge</th>
+                                <td><input type="number" value="0" id="chargeSpeed"></td>
+                            </tr>
+                            <tr>
+                                <th>Run</th>
+                                <td><input type="number" value="0" id="runSpeed"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -450,9 +450,12 @@
             <div class="table-colors"> <!-- Psyker Stuff -->
                 <table id="psyTable" class="psyker-table-style">
                     <tr>
-                        <td><h2>Psyker Powers</h2></td>
+                        <td>
+                            <h2>Psyker Powers</h2>
+                        </td>
                         <td><button onclick="addPsykerSlot()">Add Power</button>
-                        <button onclick="removePsykerSlot()">Remove Power</button></td>
+                            <button onclick="removePsykerSlot()">Remove Power</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -469,15 +472,25 @@
                     </tr>
                     <tr>
                         <td><textarea type="number" id="1PsyPower"></textarea></td>
-                        <td><textarea type="number" id="1PsyDesc"></textarea></td>
-                    </tr> 
+                        <td><button onclick="openDescBox('descPsyker1')">Open Description</button></td>
+
+                        <div id="descPsyker1" class="descBox">
+                            <h1>Psyker Power 1</h1>
+                            <div class="descContent">
+                                <textarea id="1PsyDesc"></textarea>
+                                <button onclick="closeDescBox('descPsyker1')">Close</button>
+                            </div>
+                        </div>
+                    </tr>
                 </table>
             </div>
             <div class="table-colors"> <!--Inventory-->
                 <table id="inventoryTable" class="inventory-table-style"> <!--Gear-->
                     <tr>
-                        <td><h2>Inventory</h2></td>
-                        <td colspan="2">
+                        <td>
+                            <h2>Inventory</h2>
+                        </td>
+                        <td>
                             <button onclick="addInventorySlot()">Add Slot</button>
                             <button onclick="removeInventorySlot()">Remove Slot</button>
                         </td>
@@ -504,12 +517,24 @@
                     </tr>
                     <tr>
                         <th>Name</th>
-                        <th colspan="2">Description</th>
+                        <th>Description</th>
                         <th>Weight (kg)</th>
                     </tr>
                     <tr>
                         <td><textarea type="number" id="1Inv"></textarea></td>
-                        <td colspan="2"><textarea type="number" id="1Desc"></textarea></td>
+
+
+                        <td><button onclick="openDescBox('descInv1')">Open Description</button></td>
+
+                        <div id="descInv1" class="descBox">
+                            <h1>Item 1</h1>
+                            <div class="descContent">
+                                <textarea id="1InvDesc"></textarea>
+                                <button onclick="closeDescBox('descInv1')">Close</button>
+                            </div>
+                        </div>
+
+
                         <td><input type="number" id="1Weigh" value="0" onchange="currentCarryWeight()"></td>
                     </tr>
                 </table>
@@ -517,39 +542,33 @@
             <div class="table-colors"> <!--Weapons-->
                 <table id="weaponTable" class="weapon-table-style"> <!--Gear-->
                     <tr>
-                        <td colspan="3"><h2>Weapons</h2></td>
-                        <td colspan="9">
+                        <td>
+                            <h2>Weapons</h2>
+                        </td>
+                        <td>
                             <button onclick="addWeaponSlot()">Add Slot</button>
                             <button onclick="removeWeaponSlot()">Remove Slot</button>
                         </td>
                     </tr>
                     <tr>
                         <th>Name</th>
-                        <th>Family</th>
-                        <th>Class</th>
-                        <th>Range</th>
-                        <th>RoF</th>
-                        <th>Dmg</th>
-                        <th>Pen</th>
-                        <th>Clip</th>
-                        <th>Reload</th>
+                        <th>Description</th>
                         <th>Weight (kg)</th>
-                        <th>Avl</th>
-                        <th>Special</th>
                     </tr>
                     <tr>
                         <td><textarea type="text" id="1WeapName"></textarea></td>
-                        <td><textarea type="text" id="1WeapFamily"></textarea></td>
-                        <td><textarea type="text" id="1WeapClass"></textarea></td>
-                        <td><textarea type="text" id="1WeapRange"></textarea></td>
-                        <td><textarea type="text" id="1WeapRoF"></textarea></td>
-                        <td><textarea type="text" id="1WeapDmg"></textarea></td>
-                        <td><textarea type="text" id="1WeapPen"></textarea></td>
-                        <td><textarea type="text" id="1WeapClip"></textarea></td>
-                        <td><textarea type="text" id="1WeapReload"></textarea></td>
+
+                        <td><button onclick="openDescBox('descWeap1')">Open Description</button></td>
+
+                        <div id="descWeap1" class="descBox">
+                            <h1>Weapon 1</h1>
+                            <div class="descContent">
+                                <textarea id="1WeapDesc"></textarea>
+                                <button onclick="closeDescBox('descWeap1')">Close</button>
+                            </div>
+                        </div>
+
                         <td><input type="number" id="1WeapWeigh" value="0" onchange="currentCarryWeight()"></td>
-                        <td><textarea type="text" id="1WeapAvl"></textarea></td>
-                        <td><textarea type="text" id="1WeapSpecial"></textarea></td>
                     </tr>
                 </table>
             </div>
