@@ -226,8 +226,14 @@ function removeWeaponSlot() {
 
 /* Open and Close Description Boxes */
 
-function openDescBox(descBoxID) {
-    document.getElementById(descBoxID).style.display = "block";
+function openDescBox(descBoxId, textareaNameID) {
+    var fieldName = document.getElementById(textareaNameID).value; /* Take the text in the textarea in the inventory slot */
+    var descBox = document.getElementById(descBoxId); /* Find the corresponding box for the item */
+    var h1Element = descBox.querySelector("h1"); /* Find the header element inside the popup description box */
+    if (h1Element) {
+        h1Element.textContent = fieldName; /* Replace the header text with the name of the item found in fieldName */
+    }
+    descBox.style.display = "block"; /* Display the item and description */
 }
 
 function closeDescBox(descBoxID) {
