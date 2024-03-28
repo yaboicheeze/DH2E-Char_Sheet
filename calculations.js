@@ -144,7 +144,7 @@ function addInventorySlot() {
     var newRow = table.insertRow(-1);
     newRow.innerHTML =
         '<td><textarea type="number" id="' + count + 'Inv"></textarea></td>' +
-        '<td><button onclick="openDescBox(\'descInv' + count + '\')">Open Description</button></td>' +
+        '<td><button onclick="openDescBox(\'descInv' + count + '\', \'' + count + 'Inv\')">Open Description</button></td>' +
         '<div id="descInv' + count + '" class="descBox">' +
         '<h1>Item ' + count + '</h1>' +
         '<div class="descContent">' +
@@ -174,7 +174,7 @@ function addPsykerSlot() {
     var newRow = table.insertRow(-1);
     newRow.innerHTML =
         '<td><textarea type="number" id="' + count + 'PsyPower"></textarea></td>' +
-        '<td><button onclick="openDescBox(\'descPsyker' + count + '\')">Open Description</button></td>' +
+        '<td><button onclick="openDescBox(\'descPsyker' + count + '\', \'' + count + 'PsyPower\')">Open Description</button></td>' +
         '<div id="descPsyker' + count + '" class="descBox">' +
         '<h1>Psyker Power' + count + '</h1>' +
         '<div class="descContent">' +
@@ -201,19 +201,20 @@ function addWeaponSlot() {
     var count = table.rows.length - 1;
     var newRow = table.insertRow(-1);
     newRow.innerHTML =
-        '<td><textarea type="number" id="' + count + 'Inv"></textarea></td>' +
+        '<td><textarea type="text" id="' + count + 'WeapName"></textarea></td>' +
 
-        '<td><button onclick="openDescBox(\'descWeap1' + count + '\')">Open Description</button></td>' +
-        '<div id="descWeap1' + count + '" class="descBox">' +
+        '<td><button onclick="openDescBox(\'descWeap' + count + '\', \'' + count + 'WeapName\')">Open Description</button></td>' +
+        '<div id="descWeap' + count + '" class="descBox">' +
         '<h1>Weapon ' + count + '</h1>' +
         '<div class="descContent">' +
         '<textarea id="' + count + 'WeapDesc"></textarea>' +
-        '<button onclick="closeDescBox(\'descWeap1' + count + '\')">Close</button>' +
+        '<button onclick="closeDescBox(\'descWeap' + count + '\')">Close</button>' +
         '</div>' +
         '</div>' +
 
         '<td><input type="number" id="' + count + 'WeapWeigh" value="0" onchange="currentCarryWeight()"></td>';
-}
+    console.log(count);
+    }
 
 
 
