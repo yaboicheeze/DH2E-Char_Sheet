@@ -142,7 +142,7 @@ function addInventorySlot() {
     var count = table.rows.length - 3;
 
     var newRow = table.insertRow(-1);
-    newRow.innerHTML = 
+    newRow.innerHTML =
         '<td><textarea type="number" id="' + count + 'Inv"></textarea></td>' +
         '<td><button onclick="openDescBox(\'descInv' + count + '\')">Open Description</button></td>' +
         '<div id="descInv' + count + '" class="descBox">' +
@@ -152,8 +152,8 @@ function addInventorySlot() {
         '<button onclick="closeDescBox(\'descInv' + count + '\')">Close</button>' +
         '</div>' +
         '</div>' +
-        
-        '<td><input type="number" id="' + count +'Weigh" value="0" onchange="currentCarryWeight()"></td>';;
+
+        '<td><input type="number" id="' + count + 'Weigh" value="0" onchange="currentCarryWeight()"></td>';;
 }
 
 function removeInventorySlot() {
@@ -172,7 +172,7 @@ function addPsykerSlot() {
     var count = table.rows.length - 2;
 
     var newRow = table.insertRow(-1);
-    newRow.innerHTML = 
+    newRow.innerHTML =
         '<td><textarea type="number" id="' + count + 'PsyPower"></textarea></td>' +
         '<td><button onclick="openDescBox(\'descPsyker' + count + '\')">Open Description</button></td>' +
         '<div id="descPsyker' + count + '" class="descBox">' +
@@ -200,7 +200,7 @@ function addWeaponSlot() {
     var table = document.getElementById("weaponTable")
     var count = table.rows.length - 1;
     var newRow = table.insertRow(-1);
-    newRow.innerHTML = 
+    newRow.innerHTML =
         '<td><textarea type="number" id="' + count + 'Inv"></textarea></td>' +
 
         '<td><button onclick="openDescBox(\'descWeap1' + count + '\')">Open Description</button></td>' +
@@ -212,7 +212,7 @@ function addWeaponSlot() {
         '</div>' +
         '</div>' +
 
-        '<td><input type="number" id="' + count +'WeapWeigh" value="0" onchange="currentCarryWeight()"></td>';
+        '<td><input type="number" id="' + count + 'WeapWeigh" value="0" onchange="currentCarryWeight()"></td>';
 }
 
 
@@ -238,4 +238,51 @@ function openDescBox(descBoxId, textareaNameID) {
 
 function closeDescBox(descBoxID) {
     document.getElementById(descBoxID).style.display = "none";
+}
+
+/* Save and Load */
+
+/* function saveCharacter() {
+    var weapon = document.getElementById("1WeapName").value;
+
+    // Create a JavaScript object
+    var dataObject = {
+        Weapons: weapon
+    };
+
+    // Convert JavaScript object to JSON string
+    var jsonString = JSON.stringify(dataObject, null, 2);
+
+    console.log(jsonString);
+
+    // Create a Blob from the JSON string
+    var blob = new Blob([jsonString], { type: 'application/json' });
+
+    // Create a temporary URL for the Blob
+    var url = URL.createObjectURL(blob);
+
+    // Create a hidden link
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'character_data.json'; // Specify the filename
+    a.style.display = 'none'; // Hide the link
+
+    // Append the link to the document body
+    document.body.appendChild(a);
+
+    // Trigger the click event of the link to start the download
+    a.click();
+
+    // Clean up: remove the link and revoke the Blob URL
+    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+} */
+
+
+function saveCharacter() {
+
+}
+
+function loadCharacter() {
+
 }
