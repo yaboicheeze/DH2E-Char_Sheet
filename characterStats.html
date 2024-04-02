@@ -15,6 +15,7 @@
         <nav>
             <button onclick="saveCharacter()">Save Character</button>
             <button onclick="loadCharacter()">Load Character</button>
+            <input type="file" id="loadedFile" accept="application/json">
             <a href="https://apps.ajott.io/quickref/index.html" target="_blank">DH 2e Quick Reference</a>
             <a href="https://apps.ajott.io/dh2chargen/" target="_blank">Character Creator</a>
         </nav>
@@ -23,7 +24,7 @@
         <div> <!--Main Stats-->
             <div class="table-container">
                 <div class="table-colors"> <!--Ability Scores-->
-                    <table>
+                    <table class="ability-table"> <!-- arbitrary class that aids in locating the scores while saving the sheet -->
                         <tr>
                             <h2 rowspan="3">Abilities
                             </h2>
@@ -39,7 +40,7 @@
                             <td><input type="number" value="0" id="wsMod"></td>
                         </tr>
                         <tr>
-                            <td>Balistic Skill</td>
+                            <td>Ballistic Skill</td>
                             <td><input type="number" value="10" id="bsScore" onchange="updateModifiers()"></td>
                             <td><input type="number" value="0" id="bsMod"></td>
                         </tr>
@@ -86,7 +87,7 @@
                     </table>
                 </div>
                 <div class="table-colors"> <!--Armor-->
-                    <table>
+                    <table class="armor-table">
                         <tr>
                             <h2 rowspan="3">Armor</h2>
                         </tr>
@@ -390,7 +391,7 @@
         </div>
         <div> <!--Inventory and Other Stats-->
             <div class="table-colors">
-                <table> <!--Damage Values-->
+                <table class="tracker-values"> <!--Damage Values-->
                     <h2>Damage Values</h2>
                     <tr>
                         <th>Crtical Health</th>
@@ -408,7 +409,7 @@
             </div>
             <div class="table-container-nomargin"> <!--Trackers-->
                 <div class="table-colors"> <!--Experience Points-->
-                    <table>
+                    <table class="tracker-values">
                         <h2>EXP</h2>
                         <tr>
                             <td>XP To Spend</td>
@@ -421,7 +422,7 @@
                     </table>
                 </div>
                 <div class="table-colors"> <!--Fate Points-->
-                    <table>
+                    <table class="tracker-values">
                         <h2>Fate Points</h2>
                         <tr>
                             <td>Threshold</td>
@@ -434,7 +435,7 @@
                     </table>
                 </div>
                 <div class="table-colors"> <!--Fatigue-->
-                    <table>
+                    <table class="tracker-values">
                         <h2>Fatigue</h2>
                         <tr>
                             <td>Threshold</td>
@@ -448,7 +449,7 @@
                 </div>
             </div>
             <div class="table-colors"> <!-- Psyker Stuff -->
-                <table id="psyTable" class="psyker-table-style">
+                <table id="psyTable" class="weapon-table-style">
                     <tr>
                         <td>
                             <h2>Psyker Powers</h2>
@@ -485,7 +486,7 @@
                 </table>
             </div>
             <div class="table-colors"> <!--Inventory-->
-                <table id="inventoryTable" class="inventory-table-style"> <!--Gear-->
+                <table id="inventoryTable" class="weapon-table-style"> <!--Gear-->
                     <tr>
                         <td>
                             <h2>Inventory</h2>

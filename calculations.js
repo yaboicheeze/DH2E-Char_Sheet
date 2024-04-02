@@ -213,7 +213,6 @@ function addWeaponSlot() {
         '</div>' +
 
         '<td><input type="number" id="' + count + 'WeapWeigh" value="0" onchange="currentCarryWeight()"></td>';
-    console.log(count);
     }
 
 
@@ -241,49 +240,240 @@ function closeDescBox(descBoxID) {
     document.getElementById(descBoxID).style.display = "none";
 }
 
-/* Save and Load */
 
-/* function saveCharacter() {
-    var weapon = document.getElementById("1WeapName").value;
 
-    // Create a JavaScript object
-    var dataObject = {
-        Weapons: weapon
+/* 
+class Character {
+    constructor(name, homeworld, background, weaponskill, strength, toughness) {
+        this.name = name;
+        this.homeworld = homeworld;
+        this.background = background;
+        this.weaponskill = weaponskill;
+        this.strength = strength;
+        this.toughness = toughness;
+    }
+
+    static fromDictionary(characterDictionary) {
+        const inventory = characterDictionary.inventory.map(itemDict => Item.fromDictionary(itemDict));
+        return new Character(
+            characterDictionary.name,
+            characterDictionary.homeworld,
+            characterDictionary.background,
+            characterDictionary.weaponskill,
+            characterDictionary.strength,
+            characterDictionary.toughness
+        );
+    }
+    
+    toDictionary() {
+        const inventory = this.inventory.map(item => item.toDictionary());
+        return {
+            "name": this.name,
+            "homeworld": this.homeworld,
+            "background": this.background,
+            "weaponskill": this.weaponskill,
+            "strength": this.strength,
+            "toughness": this.toughness
+        };
+    }
+}
+
+// Convert Character object to JSON string and save to file
+const jsonString = JSON.stringify(myCharacter.toDictionary(), null, 4);
+console.log(jsonString);
+
+// Read character from file and recreate Character object
+const characterFromJson = Character.fromDictionary(JSON.parse(jsonString));
+console.log(characterFromJson);
+ */
+
+
+
+/* document.addEventListener("DOMContentLoaded", function () {
+    character = {
+        name: document.getElementById("charName").value,
+        weaponskill: parseInt(document.getElementById("wsScore").value),
+        strength: parseInt(document.getElementById("strScore").value),
+        toughness: parseInt(document.getElementById("tScore").value)
     };
+});
 
-    // Convert JavaScript object to JSON string
-    var jsonString = JSON.stringify(dataObject, null, 2);
+function updateCharacterStats() {
+    character.name = document.getElementById("charName").value;
+    character.weaponskill = parseInt(document.getElementById("wsScore").value);
+    character.strength = parseInt(document.getElementById("strScore").value);
+    character.toughness = parseInt(document.getElementById("tScore").value);
+} */
+var character;
 
-    console.log(jsonString);
 
-    // Create a Blob from the JSON string
-    var blob = new Blob([jsonString], { type: 'application/json' });
+document.addEventListener("DOMContentLoaded", function () {
+    character = createCharacterObject();
+});
 
-    // Create a temporary URL for the Blob
-    var url = URL.createObjectURL(blob);
+function createCharacterObject() {
+    const charInfoBlock = document.querySelectorAll(".char-info-block textarea");
+    const weapItemPsyNames = document.querySelectorAll(".weapon-table-style textarea");
+    const weapItemPsyInfo = document.querySelectorAll(".descContent textarea");
+    const weightsAndPsyRate = document.querySelectorAll(".weapon-table-style input");
+    const abilityNums = document.querySelectorAll(".ability-table input");
+    const armorNums = document.querySelectorAll(".armor-table input");
+    const skillChecks = document.querySelectorAll(".checkbox-cell input");
+    const trackerValues = document.querySelectorAll(".tracker-values input");
 
-    // Create a hidden link
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'character_data.json'; // Specify the filename
-    a.style.display = 'none'; // Hide the link
+    const characterObject = {};
 
-    // Append the link to the document body
-    document.body.appendChild(a);
+    /* Collects all the typed character indo like background, name, homeworld, traits, etc. */
+    charInfoBlock.forEach(function (textarea) {
+        const id = textarea.id;
+        const value = textarea.value;
+        characterObject[id] = value;
+    });
 
-    // Trigger the click event of the link to start the download
-    a.click();
+    /* Collects names for all items, weapons, and psyker powers */
+    weapItemPsyNames.forEach(function (textarea) {
+        const id = textarea.id;
+        const value = textarea.value;
+        characterObject[id] = value;
+    });
 
-    // Clean up: remove the link and revoke the Blob URL
-    URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+    /* Collects the psy rating of the character and the weight for all items/weapons*/
+    weightsAndPsyRate.forEach(function (input) {
+        const id = input.id;
+        const value = parseFloat(input.value);
+        characterObject[id] = value;
+    });
+
+    /* Displays the info for items, weapons, and psyker powers */
+    weapItemPsyInfo.forEach(function (textarea) {
+        const id = textarea.id;
+        const value = parseFloat(textarea.value);
+        characterObject[id] = value;
+    });
+
+    /* Collects the ability numbers and modifiers for the character's main stats */
+    abilityNums.forEach(function (input) {
+        const id = input.id;
+        const value = input.value;
+        characterObject[id] = value;
+    });
+
+    /* Collects the armor value of the character */
+    armorNums.forEach(function (input) {
+        const id = input.id;
+        const value = input.value;
+        characterObject[id] = value;
+    });
+
+    /* Collects the true/false value of the character skill checkboxes */
+    skillChecks.forEach(function (input) {
+        const id = input.id;
+        const value = input.checked;
+        characterObject[id] = value;
+    });
+
+    /* Collects the values of the character's crit. health, wounds, insanity, corruption, exp, fate, and fatigue */
+    trackerValues.forEach(function (input) {
+        const id = input.id;
+        const value = input.value;
+        characterObject[id] = value;
+    });
+
+    return characterObject;
+}
+
+function updateCharacterStats() {
+    character = createCharacterObject();
+}
+
+function saveCharacter() {
+    updateCharacterStats();
+    const jsonData = JSON.stringify(character, null, 4);
+    const jsonBlob = new Blob([jsonData], { type: 'application/json' });
+
+    const filename = document.getElementById("charName").value + 'CharSheet.json';
+    const newLink = document.createElement("a");
+    newLink.download = filename;
+    newLink.href = window.URL.createObjectURL(jsonBlob);
+    newLink.style.display = "none";
+    document.body.appendChild(newLink);
+    newLink.click();
+    document.body.removeChild(newLink);
+}
+
+/* document.getElementById('loadedFile').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    loadCharacter(file);
+});
+
+
+function loadCharacter(file) {
+    console.log("checkpoint 1")
+        const reader = new FileReader();
+    
+        reader.onload = function(event) {
+            const importedJSON = JSON.parse(event.target.result);
+            document.getElementById("wsScore").value = importedJSON .weaponskill;
+            // You can now use weaponskill variable in your code
+        };
+    
+        reader.readAsText(file);
+        console.log("checkpoint 2")
+    
+    console.log("checkpoint 3")
 } */
 
 
-function saveCharacter() {
-
-}
 
 function loadCharacter() {
+    var fileInput = document.getElementById("loadedFile");
+    var file = fileInput.files[0];
 
+    if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+            var jsonData = event.target.result;
+            
+            try {
+                const loadedFile = JSON.parse(jsonData);
+
+                /* var testVariable = loadedFile.xpToSpend;
+                document.getElementById("xpToSpend").value = testVariable; */
+
+                /* Find way to comb through every variable on the JSON and then assign them to the variables on the html */
+                /* Must iterate through and create weapon, inventory, and psyker slots */
+
+                for (var id in loadedFile){
+
+                    var charDetail = document.getElementById(id);
+                    console.log(charDetail);
+                    charDetail.value = loadedFile[id];
+
+                    if (charDetail){
+                        if (id.includes("Inv") && !id.includes("Desc")){
+                            addInventorySlot();
+                        }
+                        else if(id.includes("PsyPower") && !id.includes("Desc")){
+                            addPsykerSlot();
+                        }
+                        else if(id.includes("WeapName") && !id.includes("Desc")){
+                            addWeaponSlot();
+                        }
+                        else if(id.startsWith("checkbox")){
+                            charDetail.checked = loadedFile[id];
+                        }
+                        else{
+                            charDetail.value = loadedFile[id];
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error parsing JSON:", error);
+            }
+        };
+        reader.readAsText(file);
+    } else {
+        console.error("No file selected.");
+    }
 }
