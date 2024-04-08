@@ -1,3 +1,10 @@
+/* Change tab name in browser */
+function changeTabName() {
+    var tabName = document.querySelector("title");
+    tabName.textContent = document.getElementById("charName").value + " - DH2E Character Sheet";
+}
+
+
 const ARMOR_VALUE_MAP = {
     "headAV": "totHeadAV",
     "bodyAV": "totBodAV",
@@ -17,6 +24,18 @@ const STAT_MAP = {
     "wpScore": "wpMod",
     "felScore": "felMod",
     "iflScore": "iflMod"
+}
+const BONUS_MAP = {
+    "wsAddBonus": "wsMod",
+    "bsAddBonus": "bsMod",
+    "strAddBonus": "strMod",
+    "tAddBonus": "tMod",
+    "agAddBonus": "agMod",
+    "intAddBonus": "intMod",
+    "perAddBonus": "perMod",
+    "wpAddBonus": "wpMod",
+    "felAddBonus": "felMod",
+    "iflAddBonus": "iflMod"
 }
 const WEIGHT_MAP = {
     0: 0.9,
@@ -39,7 +58,17 @@ const WEIGHT_MAP = {
     17: 900,
     18: 1350,
     19: 1800,
-    20: 2250
+    20: 2250,
+    21: 2850,
+    22: 3450,
+    23: 4050,
+    24: 4910,
+    25: 5770,
+    26: 6770,
+    27: 7770,
+    28: 9000,
+    29: 10500,
+    30: 12250
 }
 
 /**
@@ -59,6 +88,9 @@ function setWeights() {
     let toughBonus = parseInt(document.getElementById("tMod").value);
     let strengthBonus = parseInt(document.getElementById("strMod").value);
     let baseWeight = WEIGHT_MAP[toughBonus + strengthBonus];
+    if ((toughBonus+strengthBonus) > 30){
+        baseWeight = (12250 + (1720 * (toughBonus+strengthBonus-30)));
+    }
     document.getElementById("totalWeight").value = baseWeight;
     document.getElementById("liftWeight").value = baseWeight * 2;
     document.getElementById("pushWeight").value = baseWeight * 4;
@@ -69,7 +101,12 @@ function setWeights() {
  */
 function updateModifiers() {
     for (let key in STAT_MAP) {
-        document.getElementById(STAT_MAP[key]).value = Math.floor(document.getElementById(key).value / 10)
+        document.getElementById(STAT_MAP[key]).value = parseInt(Math.floor(document.getElementById(key).value / 10));
+    }
+    for (let key2 in BONUS_MAP) {
+        let finalMod = parseInt(document.getElementById(BONUS_MAP[key2]).value);
+        let addBonus = parseInt(document.getElementById(key2).value);
+        document.getElementById(BONUS_MAP[key2]).value = finalMod + addBonus;
     }
 }
 
@@ -108,9 +145,9 @@ function currentCarryWeight() {
 function updateMoveValues() {
     var moveMod = parseInt(document.getElementById("agMod").value);
     document.getElementById("halfSpeed").value = moveMod;
-    document.getElementById("fullSpeed").value = moveMod * 2;
-    document.getElementById("chargeSpeed").value = moveMod * 3;
-    document.getElementById("runSpeed").value = moveMod * 6;
+    document.getElementById("fullSpeed").value = document.getElementById("halfSpeed").value * 2;
+    document.getElementById("chargeSpeed").value = document.getElementById("halfSpeed").value * 3;
+    document.getElementById("runSpeed").value = document.getElementById("halfSpeed").value * 6;
 }
 
 function updateFatigueThresh() {
@@ -143,6 +180,7 @@ function addInventorySlot() {
 
     var newRow = table.insertRow(-1);
     newRow.innerHTML =
+        '<td><button id="removeInvButton" onclick="removeSpecificInvSlot(this)">Delete</button></td>' +
         '<td><textarea type="number" id="' + count + 'Inv"></textarea></td>' +
         '<td><button onclick="openDescBox(\'descInv' + count + '\', \'' + count + 'Inv\')">Open Description</button></td>' +
         '<div id="descInv' + count + '" class="descBox">' +
@@ -166,14 +204,16 @@ function removeInventorySlot() {
 
 /* Psyker Slots */
 
-
 function addPsykerSlot() {
     var table = document.getElementById("psyTable");
     var count = table.rows.length - 2;
 
     var newRow = table.insertRow(-1);
     newRow.innerHTML =
+        '<td><button id="removeInvButton" onclick="removeSpecificPsySlot(this)">Delete</button></td>' +
+
         '<td><textarea type="number" id="' + count + 'PsyPower"></textarea></td>' +
+
         '<td><button onclick="openDescBox(\'descPsyker' + count + '\', \'' + count + 'PsyPower\')">Open Description</button></td>' +
         '<div id="descPsyker' + count + '" class="descBox">' +
         '<h1>Psyker Power' + count + '</h1>' +
@@ -192,15 +232,15 @@ function removePsykerSlot() {
 }
 
 
-
 /* Weapon Slots */
-
 
 function addWeaponSlot() {
     var table = document.getElementById("weaponTable")
     var count = table.rows.length - 1;
     var newRow = table.insertRow(-1);
     newRow.innerHTML =
+        '<td><button id="removeInvButton" onclick="removeSpecificWeapSlot(this)">Delete</button></td>' +
+
         '<td><textarea type="text" id="' + count + 'WeapName"></textarea></td>' +
 
         '<td><button onclick="openDescBox(\'descWeap' + count + '\', \'' + count + 'WeapName\')">Open Description</button></td>' +
@@ -213,8 +253,7 @@ function addWeaponSlot() {
         '</div>' +
 
         '<td><input type="number" id="' + count + 'WeapWeigh" value="0" onchange="currentCarryWeight()"></td>';
-    }
-
+}
 
 
 function removeWeaponSlot() {
@@ -223,6 +262,29 @@ function removeWeaponSlot() {
         table.deleteRow(table.rows.length - 1);
     }
 }
+
+/* Remove Specific Item Slots */
+function removeSpecificInvSlot(button) {
+    var row = button.parentNode.parentNode;
+    var index = row.rowIndex;
+    var table = document.getElementById("inventoryTable");
+    table.deleteRow(index);
+}
+
+function removeSpecificWeapSlot(button) {
+    var row = button.parentNode.parentNode;
+    var index = row.rowIndex;
+    var table = document.getElementById("weaponTable");
+    table.deleteRow(index);
+}
+
+function removeSpecificPsySlot(button) {
+    var row = button.parentNode.parentNode;
+    var index = row.rowIndex;
+    var table = document.getElementById("psyTable");
+    table.deleteRow(index);
+}
+
 
 /* Open and Close Description Boxes */
 
@@ -241,71 +303,9 @@ function closeDescBox(descBoxID) {
 }
 
 
+/* Saving and Loading */
 
-/* 
-class Character {
-    constructor(name, homeworld, background, weaponskill, strength, toughness) {
-        this.name = name;
-        this.homeworld = homeworld;
-        this.background = background;
-        this.weaponskill = weaponskill;
-        this.strength = strength;
-        this.toughness = toughness;
-    }
-
-    static fromDictionary(characterDictionary) {
-        const inventory = characterDictionary.inventory.map(itemDict => Item.fromDictionary(itemDict));
-        return new Character(
-            characterDictionary.name,
-            characterDictionary.homeworld,
-            characterDictionary.background,
-            characterDictionary.weaponskill,
-            characterDictionary.strength,
-            characterDictionary.toughness
-        );
-    }
-    
-    toDictionary() {
-        const inventory = this.inventory.map(item => item.toDictionary());
-        return {
-            "name": this.name,
-            "homeworld": this.homeworld,
-            "background": this.background,
-            "weaponskill": this.weaponskill,
-            "strength": this.strength,
-            "toughness": this.toughness
-        };
-    }
-}
-
-// Convert Character object to JSON string and save to file
-const jsonString = JSON.stringify(myCharacter.toDictionary(), null, 4);
-console.log(jsonString);
-
-// Read character from file and recreate Character object
-const characterFromJson = Character.fromDictionary(JSON.parse(jsonString));
-console.log(characterFromJson);
- */
-
-
-
-/* document.addEventListener("DOMContentLoaded", function () {
-    character = {
-        name: document.getElementById("charName").value,
-        weaponskill: parseInt(document.getElementById("wsScore").value),
-        strength: parseInt(document.getElementById("strScore").value),
-        toughness: parseInt(document.getElementById("tScore").value)
-    };
-});
-
-function updateCharacterStats() {
-    character.name = document.getElementById("charName").value;
-    character.weaponskill = parseInt(document.getElementById("wsScore").value);
-    character.strength = parseInt(document.getElementById("strScore").value);
-    character.toughness = parseInt(document.getElementById("tScore").value);
-} */
 var character;
-
 
 document.addEventListener("DOMContentLoaded", function () {
     character = createCharacterObject();
@@ -320,6 +320,7 @@ function createCharacterObject() {
     const armorNums = document.querySelectorAll(".armor-table input");
     const skillChecks = document.querySelectorAll(".checkbox-cell input");
     const trackerValues = document.querySelectorAll(".tracker-values input");
+    const movementValues = document.querySelectorAll(".movement-table input");
 
     const characterObject = {};
 
@@ -365,6 +366,13 @@ function createCharacterObject() {
         characterObject[id] = value;
     });
 
+    /* Collects the movement speeds of the character */
+    movementValues.forEach(function (input) {
+        const id = input.id;
+        const value = input.value;
+        characterObject[id] = value;
+    });
+
     /* Collects the true/false value of the character skill checkboxes */
     skillChecks.forEach(function (input) {
         const id = input.id;
@@ -401,29 +409,74 @@ function saveCharacter() {
     document.body.removeChild(newLink);
 }
 
-/* document.getElementById('loadedFile').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    loadCharacter(file);
-});
+/* For adding weapon/item/power slots in bulk while loading */
+function bulkItemSlots(id) {
+    if (id.includes("Inv") && !id.includes("Desc")) {
+        var invCount = parseInt(id.charAt(0));
+        for (let i = 0; i <= invCount; i++) {
+            addInventorySlot();
+        }
+    }
+    else if (id.includes("PsyPower") && !id.includes("Desc")) {
+        var psyCount = parseInt(id.charAt(0));
+        for (let j = 0; j <= psyCount; j++) {
+            addPsykerSlot();
+        }
+    }
+    else if (id.includes("WeapName") && !id.includes("Desc")) {
+        var weapCount = parseInt(id.charAt(0));
+        for (let k = 0; k <= weapCount; k++) {
+            addWeaponSlot();
+        }
+    }
+}
+
+/* Removing any blank slots when the character sheet information is finished loading */
+function removeEmptySlots() {
+    console.log("removing inventory slots...");
+    var tableInv = document.getElementById("inventoryTable");
+    do {
+        var removed = false;
+        for (const row of tableInv.rows) {
+            const element = row.querySelector("textarea");
+            if (element && element.value.trim() === "") {
+                tableInv.deleteRow(row.rowIndex);
+                removed = true;
+            }
+        }
+    } while (removed);
+
+    /* Weapon Slots */
+    console.log("removing weapon slots...");
+    var tableWeap = document.getElementById("weaponTable");
+    do {
+        var removed = false;
+        for (const row of tableWeap.rows) {
+            const element = row.querySelector("textarea");
+            if (element && element.value.trim() === "") {
+                tableWeap.deleteRow(row.rowIndex);
+                removed = true;
+            }
+        }
+    } while (removed);
 
 
-function loadCharacter(file) {
-    console.log("checkpoint 1")
-        const reader = new FileReader();
-    
-        reader.onload = function(event) {
-            const importedJSON = JSON.parse(event.target.result);
-            document.getElementById("wsScore").value = importedJSON .weaponskill;
-            // You can now use weaponskill variable in your code
-        };
-    
-        reader.readAsText(file);
-        console.log("checkpoint 2")
-    
-    console.log("checkpoint 3")
-} */
 
+    /* Psyker Slots */
+    console.log("removing psyker slots...");
+    var tablePsy = document.getElementById("psyTable");
+    do {
+        var removed = false;
+        for (const row of tablePsy.rows) {
+            const element = row.querySelector("textarea");
+            if (element && element.value.trim() === "") {
+                tablePsy.deleteRow(row.rowIndex);
+                removed = true;
+            }
+        }
+    } while (removed);
 
+}
 
 function loadCharacter() {
     var fileInput = document.getElementById("loadedFile");
@@ -432,44 +485,32 @@ function loadCharacter() {
     if (file) {
         var reader = new FileReader();
 
-        reader.onload = function(event) {
+        reader.onload = function (event) {
             var jsonData = event.target.result;
-            
+
             try {
                 const loadedFile = JSON.parse(jsonData);
 
-                /* var testVariable = loadedFile.xpToSpend;
-                document.getElementById("xpToSpend").value = testVariable; */
+                for (var id in loadedFile) {
 
-                /* Find way to comb through every variable on the JSON and then assign them to the variables on the html */
-                /* Must iterate through and create weapon, inventory, and psyker slots */
-
-                for (var id in loadedFile){
+                    bulkItemSlots(id);
 
                     var charDetail = document.getElementById(id);
-                    console.log(charDetail);
+                    console.log(id);
                     charDetail.value = loadedFile[id];
 
-                    if (charDetail){
-                        if (id.includes("Inv") && !id.includes("Desc")){
-                            addInventorySlot();
-                        }
-                        else if(id.includes("PsyPower") && !id.includes("Desc")){
-                            addPsykerSlot();
-                        }
-                        else if(id.includes("WeapName") && !id.includes("Desc")){
-                            addWeaponSlot();
-                        }
-                        else if(id.startsWith("checkbox")){
+                    if (charDetail) {
+                        if (id.startsWith("checkbox")) {
                             charDetail.checked = loadedFile[id];
                         }
-                        else{
+                        else {
                             charDetail.value = loadedFile[id];
                         }
                     }
                 }
+                removeEmptySlots();
             } catch (error) {
-                console.error("Error parsing JSON:", error);
+                console.error("Error:", error);
             }
         };
         reader.readAsText(file);

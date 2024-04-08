@@ -1,7 +1,8 @@
 .sheet-block {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px
+    gap: 10px;
+    flex-direction: row;
 }
 
 .sheet-block table {
@@ -46,6 +47,7 @@ nav button {
     margin-left: 40px;
     font-weight: bold;
     padding: 10px;
+    margin: 20px;
 }
 
 table {
@@ -92,41 +94,7 @@ h2 {
     background-color: #fff2cc;
 }
 
-/* Inventory styling */
-.inventory-table-style {
-    color: white;
-    background-color: #990000;
-}
-
-.inventory-table-style textarea {
-    height: 30px;
-    width: 300px;
-}
-
-.inventory-table-style td:nth-child(2) textarea {
-    resize: both;
-    max-width: 500px;
-    max-height: 200px;
-}
-
-/* Psyker styling */
-.psyker-table-style {
-    color: white;
-    background-color: #990000;
-}
-
-.psyker-table-style textarea {
-    height: 30px;
-    width: 300px;
-}
-
-.psyker-table-style td:nth-child(2) textarea {
-    resize: both;
-    max-width: 500px;
-    max-height: 200px;
-}
-
-/* Weapon table styling */
+/* Slot table styling */
 .weapon-table-style {
     color: white;
     background-color: #990000;

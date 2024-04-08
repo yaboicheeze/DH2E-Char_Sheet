@@ -32,56 +32,67 @@
                         <tr>
                             <th>Ability</th>
                             <th>Score</th>
+                            <th>Add. Bonus</th>
                             <th>Mod</th>
                         </tr>
                         <tr>
                             <td>Weapon Skill</td>
                             <td><input type="number" value="10" id="wsScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value ="0" id="wsAddBonus" onchange="updateModifiers()"></td>
                             <td><input type="number" value="0" id="wsMod"></td>
                         </tr>
                         <tr>
                             <td>Ballistic Skill</td>
                             <td><input type="number" value="10" id="bsScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value ="0" id="bsAddBonus" onchange="updateModifiers()"></td>
                             <td><input type="number" value="0" id="bsMod"></td>
                         </tr>
                         <tr>
                             <td>Strength</td>
                             <td><input type="number" value="10" id="strScore" onchange="updateModACcarryWeight()"></td>
+                            <td><input type="number" value ="0" id="strAddBonus" onchange="updateModACcarryWeight()"></td>
                             <td><input type="number" value="0" id="strMod"></td>
                         </tr>
                         <tr>
                             <td>Toughness</td>
                             <td><input type="number" value="10" id="tScore" onchange="updateModACcarryWeight()"></td>
+                            <td><input type="number" value ="0" id="tAddBonus" onchange="updateModACcarryWeight()"></td>
                             <td><input type="number" value="0" id="tMod"></td>
                         </tr>
                         <tr>
                             <td>Agility</td>
                             <td><input type="number" value="10" id="agScore" onchange="updateModAndMovement()"></td>
+                            <td><input type="number" value ="0" id="agAddBonus" onchange="updateModAndMovement()"></td>
                             <td><input type="number" value="0" id="agMod"></td>
                         </tr>
                         <tr>
                             <td>Intelligence</td>
                             <td><input type="number" value="10" id="intScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value ="0" id="intAddBonus" onchange="updateModifiers()"></td>
                             <td><input type="number" value="0" id="intMod"></td>
                         </tr>
                         <tr>
                             <td>Perception</td>
                             <td><input type="number" value="10" id="perScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value ="0" id="perAddBonus" onchange="updateModifiers()"></td>
                             <td><input type="number" value="0" id="perMod"></td>
                         </tr>
                         <tr>
                             <td>Willpower</td>
                             <td><input type="number" value="10" id="wpScore" onchange="updateModAndFatigue()"></td>
+                            <td><input type="number" value ="0" id="wpAddBonus" onchange="updateModifiers()"></td>
                             <td><input type="number" value="0" id="wpMod"></td>
                         </tr>
                         <tr>
                             <td>Fellowship</td>
                             <td><input type="number" value="10" id="felScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value ="0" id="felAddBonus" onchange="updateModifiers()"></td>
                             <td><input type="number" value="0" id="felMod"></td>
                         </tr>
                         <tr>
                             <td>Influence</td>
                             <td><input type="number" value="10" id="iflScore" onchange="updateModifiers()"></td>
+                            <td><input type="number" value ="0" id="iflAddBonus" onchange="updateModifiers()"></td>
                             <td><input type="number" value="0" id="iflMod"></td>
                         </tr>
                     </table>
@@ -128,7 +139,7 @@
                         </tr>
                     </table>
                     <div class="table-colors"> <!-- Movement -->
-                        <table>
+                        <table class="movement-table">
                             <h2>Movement</h2>
                             <tr>
                                 <th>Half</th>
@@ -145,6 +156,70 @@
                             <tr>
                                 <th>Run</th>
                                 <td><input type="number" value="0" id="runSpeed"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="table-colors"><!--Damage Values-->
+                <table class="tracker-values"> 
+                    <h2>Damage Values</h2>
+                    <tr>
+                        <th>Crtical Health</th>
+                        <td><input type="text" id="chatCritHP" value="10/10"></td>
+                    </tr>
+                    <tr>
+                        <th>Wounds</th>
+                        <td><input type="text" id="charWounds" value="10/10"></td>
+                    </tr>
+                    <tr>
+                        <th>Insanity</th>
+                        <td><input type="number" id="chatInsanity" value="0"></td>
+                    </tr>
+                    <tr>
+                        <th>Corruption</th>
+                        <td><input type="number" id="charCorruption" value="0"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <div class="table-container-nomargin"> <!--Trackers-->
+                    <div class="table-colors"> <!--Experience Points-->
+                        <table class="tracker-values">
+                            <h2>EXP</h2>
+                            <tr>
+                                <td>XP To Spend</td>
+                                <td><input type="number" id="xpToSpend" value="0"></td>
+                            </tr>
+                            <tr>
+                                <td>Total SP Spent</td>
+                                <td><input type="number" id="totalXPSpent" value="0"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="table-colors"> <!--Fate Points-->
+                        <table class="tracker-values">
+                            <h2>Fate Points</h2>
+                            <tr>
+                                <td>Threshold</td>
+                                <td><input type="number" id="fateThresh" value="0"></td>
+                            </tr>
+                            <tr>
+                                <td>Current</td>
+                                <td><input type="number" id="currFate" value="0"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="table-colors"> <!--Fatigue-->
+                        <table class="tracker-values">
+                            <h2>Fatigue</h2>
+                            <tr>
+                                <td>Threshold</td>
+                                <td><input type="number" id="fatigueThresh" value="0"></td>
+                            </tr>
+                            <tr>
+                                <td>Current</td>
+                                <td><input type="number" id="currFatigue" value="0"></td>
                             </tr>
                         </table>
                     </div>
@@ -389,65 +464,8 @@
                 </div>
             </div>
         </div>
-        <div> <!--Inventory and Other Stats-->
-            <div class="table-colors">
-                <table class="tracker-values"> <!--Damage Values-->
-                    <h2>Damage Values</h2>
-                    <tr>
-                        <th>Crtical Health</th>
-                        <th>Wounds</th>
-                        <th>Insanity</th>
-                        <th>Corruption</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="chatCritHP" value="10/10"></td>
-                        <td><input type="text" id="charWounds" value="10/10"></td>
-                        <td><input type="number" id="chatInsanity" value="0"></td>
-                        <td><input type="number" id="charCorruption" value="0"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="table-container-nomargin"> <!--Trackers-->
-                <div class="table-colors"> <!--Experience Points-->
-                    <table class="tracker-values">
-                        <h2>EXP</h2>
-                        <tr>
-                            <td>XP To Spend</td>
-                            <td><input type="number" id="xpToSpend" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>Total SP Spent</td>
-                            <td><input type="number" id="totalXPSpent" value="0"></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="table-colors"> <!--Fate Points-->
-                    <table class="tracker-values">
-                        <h2>Fate Points</h2>
-                        <tr>
-                            <td>Threshold</td>
-                            <td><input type="number" id="fateThresh" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>Current</td>
-                            <td><input type="number" id="currFate" value="0"></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="table-colors"> <!--Fatigue-->
-                    <table class="tracker-values">
-                        <h2>Fatigue</h2>
-                        <tr>
-                            <td>Threshold</td>
-                            <td><input type="number" id="fatigueThresh" value="0"></td>
-                        </tr>
-                        <tr>
-                            <td>Current</td>
-                            <td><input type="number" id="currFatigue" value="0"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+        <!--Inventory and Other Stats-->     
+        <div>
             <div class="table-colors"> <!-- Psyker Stuff -->
                 <table id="psyTable" class="weapon-table-style">
                     <tr>
@@ -455,7 +473,6 @@
                             <h2>Psyker Powers</h2>
                         </td>
                         <td><button onclick="addPsykerSlot()">Add Power</button>
-                            <button onclick="removePsykerSlot()">Remove Power</button>
                         </td>
                     </tr>
                     <tr>
@@ -468,10 +485,12 @@
                             </table>
                         </td>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Description</th>
                     </tr>
                     <tr>
+                        <td><button id="removeInvButton" onclick="removeSpecificPsySlot(this)">Delete</button></td>
                         <td><textarea type="number" id="1PsyPower"></textarea></td>
                         <td><button onclick="openDescBox('descPsyker1', '1PsyPower')">Open Description</button></td>
 
@@ -493,7 +512,6 @@
                         </td>
                         <td>
                             <button onclick="addInventorySlot()">Add Slot</button>
-                            <button onclick="removeInventorySlot()">Remove Slot</button>
                         </td>
                     </tr>
                     <tr>
@@ -517,13 +535,15 @@
                         <td colspan="2"><input type="number" id="curWeight" value="0"></td>
                     </tr>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Weight (kg)</th>
                     </tr>
                     <tr>
-                        <td><textarea type="number" id="1Inv"></textarea></td>
+                        <td><button id="removeInvButton" onclick="removeSpecificInvSlot(this)">Delete</button></td>
 
+                        <td><textarea type="number" id="1Inv"></textarea></td>
 
                         <td><button onclick="openDescBox('descInv1', '1Inv')">Open Description</button></td>
 
@@ -548,15 +568,16 @@
                         </td>
                         <td>
                             <button onclick="addWeaponSlot()">Add Slot</button>
-                            <button onclick="removeWeaponSlot()">Remove Slot</button>
                         </td>
                     </tr>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Weight (kg)</th>
                     </tr>
                     <tr>
+                        <td><button id="removeInvButton" onclick="removeSpecificWeapSlot(this)">Delete</button></td>
                         <td><textarea type="text" id="1WeapName"></textarea></td>
 
                         <td><button onclick="openDescBox('descWeap1', '1WeapName')">Open Description</button></td>
@@ -614,7 +635,7 @@
                     <h2>Character Information</h2>
                     <div class="char-info-block">
                         <h5>Character Name:</h5>
-                        <textarea id="charName"></textarea>
+                        <textarea id="charName" onchange="changeTabName()"></textarea>
                     </div>
                     <div class="char-info-block">
                         <h5>Home World</h5>
