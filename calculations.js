@@ -285,6 +285,9 @@ function removeSpecificPsySlot(button) {
     table.deleteRow(index);
 }
 
+    /* iterate over the elements in each table row with a for loop */
+    /* for loop starts with 1 and sets the id of each part to have one */
+    /* sets the next row's id's to have 2, then 3, then so on */
 
 /* Open and Close Description Boxes */
 
@@ -348,7 +351,7 @@ function createCharacterObject() {
     /* Displays the info for items, weapons, and psyker powers */
     weapItemPsyInfo.forEach(function (textarea) {
         const id = textarea.id;
-        const value = parseFloat(textarea.value);
+        const value = textarea.value;
         characterObject[id] = value;
     });
 
